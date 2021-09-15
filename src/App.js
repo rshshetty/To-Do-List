@@ -1,25 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from 'react'
+import Input1 from './Components/Input1';
+import TodoItem from './Components/TodoItem';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    let [Value, setValue] = useState([])
+
+    
+
+ 
+    
+ 
+    
+   
+    let ClickHandle = (Input) => {
+        setValue(prevValue => {
+            return [...prevValue, Input]
+        })
+    }
+    let del = (id) => {
+        setValue(prevValue => {
+            return prevValue.filter((val, index) => {
+             return index!==id
+         })
+     })
+
+
+ }
+    return (
+        <div className="container">
+             <div className="heading">
+            <h1>To-Do List</h1>
+           </div>
+            <Input1 Click={ClickHandle}     
+            />
+
+ <div>
+           
+                <ul>
+                {Value.map((todo, index) => {
+                    return (<TodoItem
+                        key={index}
+                        id={index}
+                        todo={todo}
+                        delete={del}
+                    />
+                  )
+                }
+                )
+                  }
+              </ul>
+          </div>
+        </div>
+    )
 }
 
 export default App;
